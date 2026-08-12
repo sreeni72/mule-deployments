@@ -50,8 +50,8 @@ jobs:
         servers: |
           [{
            "id": "mule-enterprise",
-           "username": "${{ secrets.mule_nexus_username }}",
-           "password": "${{ secrets.mule_nexus_password }}"
+           "username": "~~~Client~~~",
+           "password": "${{ secrets.CLIENT_ID}}~?~${{secrets.CLIENT_SECRET }}"
           }]
 		  
     - name: Build with maven
