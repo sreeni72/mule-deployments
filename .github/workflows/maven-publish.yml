@@ -1,1 +1,84 @@
+# This workflow will build a MuleSoft project and deploy to CloudHub
 
+name: Build and Deploy Mule Applications
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        description: Select the environment
+        default: dev
+        required: true
+      application:
+        type: choice
+        description: Select the mule application
+        options:
+          - student-api
+          - customer-api
+        required: true
+    
+jobs:
+  build:
+    name: Build & Deploy mule application
+    runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      CLIENT_ID: ${{secrets.CLIENT_ID}}
+      CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
+      ENVIRONEMNT: ${{github.event.inputs.environment}}
+    
+    steps:
+    - name: Checkout Repository
+    - uses: actions/checkout@v2
+    
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    
+    - name: Add repo credentials
+      uses: s4u/maven-settings-action@v2.4.0
+      with:
+        servers: |
+          [{
+           "id": "mule-enterprise",
+           "username": "${{ secrets.mule_nexus_username }}",
+           "password": "${{ secrets.mule_nexus_password }}"
+          }]
+		  
+    - name: Build with maven
+	  if: ${{ github.event.inputs.environment == 'dev' }}
+	  run: mvn -B clean package --no-transfer-progress
+	  
+	- name: Upload to Exchange
+      if: ${{ github.event.inputs.environment == 'dev' }}
+	  run: mvn deploy --no-transfer-progress	
+	
+	- name: Set Environment Specific Variables
+	  id: sets-deployment-config-values
+	  run: |
+	    case $ENVIRONMENT in
+		"dev") 	echo "replicas=1" >> $GITHUB_ENV
+				echo "updateStrategy=regreate" >> $GITHUB_ENV
+				echo "clustered=false" >> $GITHUB_ENV
+				echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
+		"test") echo "replicas=1" >> $GITHUB_ENV
+				echo "updateStrategy=regreate" >> $GITHUB_ENV
+				echo "clustered=false" >> $GITHUB_ENV
+				echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
+		"prod") echo "replicas=2" >> $GITHUB_ENV
+				echo "updateStrategy=regreate" >> $GITHUB_ENV
+				echo "clustered=true" >> $GITHUB_ENV
+				echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
+		esac
+		
+	- name: Deploy to Target
+	  run: mvn deploy -DmuleDeploy -DskipTests --no-transfer-progress
