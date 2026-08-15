@@ -86,6 +86,5 @@ jobs:
                 echo "clustered=true" >> $GITHUB_ENV
                 echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
         esac
-
     - name: Deploy to Target
 	run: mvn deploy -DmuleDeploy -DskipTests --no-transfer-progress
