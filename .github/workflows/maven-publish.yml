@@ -21,10 +21,10 @@ on:
     
 jobs:
   build:
-    - name: Build & Deploy mule application
-	defaults:
-	  run:
-	    working-directory: ${{ github.event.inputs.application }}
+    name: Build & Deploy mule application	
+	# defaults:
+	#  run:
+	#    working-directory: ${{ github.event.inputs.application }}
     # runs-on: regular-maven
     runs-on: ubuntu-latest
     env:
