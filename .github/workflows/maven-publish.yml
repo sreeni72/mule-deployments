@@ -64,16 +64,16 @@ jobs:
     - name: Build with maven
       if: ${{ github.event.inputs.environment == 'dev' }}
       run: mvn -B clean package --no-transfer-progress
-	  
+  
     - name: Upload to Exchange
       if: ${{ github.event.inputs.environment == 'dev' }}
       run: mvn deploy --no-transfer-progress
-	  
+    
     - name: Set Environment Specific Variables
       id: sets-deployment-config-values
       run: |
         case $ENVIRONMENT in
-        "dev") 	echo "replicas=1" >> $GITHUB_ENV
+        "dev")  echo "replicas=1" >> $GITHUB_ENV
                 echo "updateStrategy=regreate" >> $GITHUB_ENV
                 echo "clustered=false" >> $GITHUB_ENV
                 echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
@@ -86,6 +86,9 @@ jobs:
                 echo "clustered=true" >> $GITHUB_ENV
                 echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
         esac
-		
-		- name: Deploy to Target
-		run: mvn deploy -DmuleDeploy -DskipTests --no-transfer-progress
+	
+    - name: Deploy to Target
+    run: mvn deploy -DmuleDeploy -DskipTests --no-transfer-progress
+
+
+
