@@ -63,7 +63,7 @@ jobs:
 
     - name: Build with maven
       if: ${{ github.event.inputs.environment == 'dev' }}
-      run: mvn -B clean package --no-transfer-progress -Dclient.id=${{env.CLIENT_ID}} -Dclient.secret=${{env.CLIENT_SECRET}}
+      run: mvn -B clean package --no-transfer-progress -Dclient.id="f90668a7151545afa92919c9f92f7969" -Dclient.secret="4b8eEd41571544c39A664bA7624cf05f"
   
     - name: Upload to Exchange
       if: ${{ github.event.inputs.environment == 'dev' }}
