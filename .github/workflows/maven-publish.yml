@@ -33,11 +33,11 @@ jobs:
     env:
       CLIENT_ID: ${{secrets.CLIENT_ID}}
       CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
-      ENVIRONEMNT: ${{github.event.inputs.environment}}
+      ENVIRONMENT: ${{github.event.inputs.environment}}
     
     steps:
     - name: Checkout Repository
-    - uses: actions/checkout@v2
+      uses: actions/checkout@v2
     
     - uses: actions/cache@v1
       with:
