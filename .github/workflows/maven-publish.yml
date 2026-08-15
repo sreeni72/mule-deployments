@@ -64,11 +64,11 @@ jobs:
     - name: Build with maven
       if: ${{ github.event.inputs.environment == 'dev' }}
       run: mvn -B clean package --no-transfer-progress
-	
+	  
     - name: Upload to Exchange
       if: ${{ github.event.inputs.environment == 'dev' }}
-      run: mvn deploy --no-transfer-progress	
-	
+      run: mvn deploy --no-transfer-progress
+	  
     - name: Set Environment Specific Variables
       id: sets-deployment-config-values
       run: |
@@ -87,5 +87,5 @@ jobs:
                 echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
         esac
 		
-    - name: Deploy to Target
-      run: mvn deploy -DmuleDeploy -DskipTests --no-transfer-progress
+		- name: Deploy to Target
+		run: mvn deploy -DmuleDeploy -DskipTests --no-transfer-progress
