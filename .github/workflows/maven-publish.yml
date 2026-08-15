@@ -76,12 +76,10 @@ jobs:
         "dev")  echo "updateStrategy=recreate" >> $GITHUB_ENV
                 echo "clustered=false" >> $GITHUB_ENV
                 echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
-        "test") echo "replicas=1" >> $GITHUB_ENV
-                echo "updateStrategy=recreate" >> $GITHUB_ENV
+        "test") echo "updateStrategy=recreate" >> $GITHUB_ENV
                 echo "clustered=false" >> $GITHUB_ENV
                 echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
-        "prod") echo "replicas=2" >> $GITHUB_ENV
-                echo "updateStrategy=recreate" >> $GITHUB_ENV
+        "prod") echo "updateStrategy=recreate" >> $GITHUB_ENV
                 echo "clustered=true" >> $GITHUB_ENV
                 echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
         esac
