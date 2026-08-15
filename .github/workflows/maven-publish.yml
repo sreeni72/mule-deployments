@@ -56,7 +56,7 @@ jobs:
       with:
         servers: |
           [{
-           "id": "mule-enterprise",
+           "id": "anypoint-exchange-v3",
            "username": "~~~Client~~~",
            "password": "${{ secrets.CLIENT_ID}}~?~${{secrets.CLIENT_SECRET }}"
           }]
