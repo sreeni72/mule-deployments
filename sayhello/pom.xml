@@ -15,6 +15,12 @@
         <app.runtime>4.11.6</app.runtime>
         <mule.maven.plugin.version>4.10.0</mule.maven.plugin.version>
         <major.version>v1</major.version>
+		<!-- Enforce Java 17 Compilation -->
+    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    
+    <!-- Required for Mule Maven Plugin to package with Java 17 -->
+    <java.version>17</java.version> 
     </properties>
     
     <build>
