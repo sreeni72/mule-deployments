@@ -51,6 +51,8 @@ jobs:
       uses: actions/setup-java@v5
       with:
         java-version: 17
+        distribution: 'temurin' # Options include: temurin, zulu, adopt, oracle, corretto
+        cache: 'maven'          # Cleans up and speeds up builds ('maven' or 'gradle')
 
     - name: Add repo credentials
       uses: s4u/maven-settings-action@v2.4.0
