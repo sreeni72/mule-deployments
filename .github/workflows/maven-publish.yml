@@ -18,7 +18,7 @@ on:
          - helloworld-api
          - student-api
          - customer-api
-         - sayhello
+         - sayhello1
          required: true
     
 jobs:
