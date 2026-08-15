@@ -1,34 +1,36 @@
 # This workflow will build a MuleSoft project and deploy to CloudHub
 
 name: Build and Deploy Mule Applications
+run-name: Deploy ${{ github.event.inputs.application }} to ${{ github.event.inputs.environment }} by @${{ github.actor }}
 
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        type: environment
-        description: Select the environment
-        default: dev
-        required: true
-      application:
-        type: choice
-        description: Select the mule application
-        options:
-          - helloworld-api
-          - student-api
-          - customer-api
-        required: true
+     inputs:
+       environment:
+         type: environment
+         description: Select the environment
+         default: dev
+         required: true
+       application:
+         type: choice
+         description: Select the mule application
+         options:
+         - helloworld-api
+         - student-api
+         - customer-api
+         required: true
     
 jobs:
   build:
-    name: Build & Deploy mule application	
-	# defaults:
-	#  run:
-	#    working-directory: ${{ github.event.inputs.application }}
+    
+    name: Build & Deploy mule application
+    defaults:
+      run:
+        working-directory: ${{ github.event.inputs.application }}
+        
     # runs-on: regular-maven
     runs-on: ubuntu-latest
     env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       CLIENT_ID: ${{secrets.CLIENT_ID}}
       CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
       ENVIRONEMNT: ${{github.event.inputs.environment}}
@@ -58,32 +60,32 @@ jobs:
            "username": "~~~Client~~~",
            "password": "${{ secrets.CLIENT_ID}}~?~${{secrets.CLIENT_SECRET }}"
           }]
-		  
+
     - name: Build with maven
-	  if: ${{ github.event.inputs.environment == 'dev' }}
-	  run: mvn -B clean package --no-transfer-progress
-	  
-	- name: Upload to Exchange
       if: ${{ github.event.inputs.environment == 'dev' }}
-	  run: mvn deploy --no-transfer-progress	
+      run: mvn -B clean package --no-transfer-progress
 	
-	- name: Set Environment Specific Variables
-	  id: sets-deployment-config-values
-	  run: |
-	    case $ENVIRONMENT in
-		"dev") 	echo "replicas=1" >> $GITHUB_ENV
-				echo "updateStrategy=regreate" >> $GITHUB_ENV
-				echo "clustered=false" >> $GITHUB_ENV
-				echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
-		"test") echo "replicas=1" >> $GITHUB_ENV
-				echo "updateStrategy=regreate" >> $GITHUB_ENV
-				echo "clustered=false" >> $GITHUB_ENV
-				echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
-		"prod") echo "replicas=2" >> $GITHUB_ENV
-				echo "updateStrategy=regreate" >> $GITHUB_ENV
-				echo "clustered=true" >> $GITHUB_ENV
-				echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
-		esac
+    - name: Upload to Exchange
+      if: ${{ github.event.inputs.environment == 'dev' }}
+      run: mvn deploy --no-transfer-progress	
+	
+    - name: Set Environment Specific Variables
+      id: sets-deployment-config-values
+      run: |
+        case $ENVIRONMENT in
+        "dev") 	echo "replicas=1" >> $GITHUB_ENV
+                echo "updateStrategy=regreate" >> $GITHUB_ENV
+                echo "clustered=false" >> $GITHUB_ENV
+                echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
+        "test") echo "replicas=1" >> $GITHUB_ENV
+                echo "updateStrategy=regreate" >> $GITHUB_ENV
+                echo "clustered=false" >> $GITHUB_ENV
+                echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
+        "prod") echo "replicas=2" >> $GITHUB_ENV
+                echo "updateStrategy=regreate" >> $GITHUB_ENV
+                echo "clustered=true" >> $GITHUB_ENV
+                echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
+        esac
 		
-	- name: Deploy to Target
-	  run: mvn deploy -DmuleDeploy -DskipTests --no-transfer-progress
+    - name: Deploy to Target
+      run: mvn deploy -DmuleDeploy -DskipTests --no-transfer-progress
