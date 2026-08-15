@@ -1,0 +1,73 @@
+{
+  "basicConstraints": 49,
+  "criticalExtensionOIDs": [
+    "libero",
+    "consectetur"
+  ],
+  "extendedKeyUsage": [
+    "sodales",
+    "In"
+  ],
+  "extensions": [
+    {
+      "criticality": true,
+      "oid": "mi"
+    }
+  ],
+  "issuerAlternativeNames": [
+    {
+      "name": "Adela",
+      "type": 68
+    }
+  ],
+  "issuerDN": {
+    "commonName": "nibh",
+    "name": "Alva"
+  },
+  "issuerUniqueID": [
+    true,
+    false,
+    false
+  ],
+  "issuerX500Principal": {
+    "name": "Alexander"
+  },
+  "keyUsage": [
+    false,
+    true
+  ],
+  "name": "Analisa",
+  "nonCriticalExtensionOIDs": [
+    "at",
+    "ac"
+  ],
+  "notAfter": "2023-10-25",
+  "notBefore": "2023-02-12",
+  "publicKey": {
+    "algorithm": "molestie",
+    "modulus": 98,
+    "params": 75,
+    "publicKey": "dolor"
+  },
+  "serialNumber": 16,
+  "serialNumberObject": {
+    "serialNumber": 52
+  },
+  "sigAlgName": "sit",
+  "sigAlgOID": "dolor",
+  "subjectAlternativeNames": [
+    {
+      "name": "Adella",
+      "type": 30
+    }
+  ],
+  "subjectDN": {
+    "commonName": "Pellentesque",
+    "name": "Byron"
+  },
+  "subjectX500Principal": {
+    "name": "Colby"
+  },
+  "type": "sed",
+  "version": 89
+}
