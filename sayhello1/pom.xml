@@ -93,12 +93,12 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-   <distributionManagement>
+<distributionManagement>
         <repository>
-            <id>my-exchange-release</id>
-            <name>My Exchange Repository</name>
-            <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${project.groupId}/maven</url>
-			<uniqueVersion>false</uniqueVersion>
+            <id>anypoint-exchange-v3</id>
+            <name>Corporate Repository</name>
+            <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/0c621aac-2c92-4f89-8b05-cb8844ddceb9/maven</url>
+            <layout>default</layout>
         </repository>
     </distributionManagement>
 </project>
