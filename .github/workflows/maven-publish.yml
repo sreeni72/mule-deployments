@@ -59,6 +59,11 @@ jobs:
       with:
         servers: |
           [{
+           "id": "my-exchange-release",
+           "username": "~~~Client~~~",
+           "password": "${{ secrets.CLIENT_ID}}~?~${{secrets.CLIENT_SECRET }}"
+          },
+          {
            "id": "anypoint-exchange-v3",
            "username": "~~~Client~~~",
            "password": "${{ secrets.CLIENT_ID}}~?~${{secrets.CLIENT_SECRET }}"
