@@ -73,7 +73,7 @@ jobs:
     - name: Publish to Exchange
       if: ${{ github.event.inputs.environment == 'dev' }}
       run: |
-          mvn deploy --settings .maven/settings.xml -DskipMunitTests \
+          mvn clean deploy -U -e --settings .maven/settings.xml -DskipMunitTests \
           -Dclient.id="${{ secrets.CLIENT_ID }}" \
           -Dclient.secret="${{ secrets.CLIENT_SECRET }}"
     
