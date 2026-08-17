@@ -41,8 +41,12 @@
                         <applicationName>${project.artifactId}-${major.version}-${env.ENVIRONMENT}</applicationName>
                         <replicas>1</replicas>
                         <vCores>0.1</vCores>
+						<connectedAppClientId>${env.CLIENT_ID}</connectedAppClientId>
+						<connectedAppClientSecret>${env.CLIENT_SECRET}</connectedAppClientSecret>
+						<connectedAppGrantType>client_credentials</connectedAppGrantType>
+      
                         <!-- Reference the server ID defined in your settings.xml -->
-                        <server>anypoint-exchange-v3</server> 
+                        <!-- <server>anypoint-exchange-v3</server> -->
                         <deploymentSettings>
                             <generateDefaultPublicUrl>true</generateDefaultPublicUrl>
                         </deploymentSettings>
