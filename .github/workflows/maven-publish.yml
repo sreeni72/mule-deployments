@@ -92,6 +92,7 @@ jobs:
                 echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
         esac
     - name: Deploy to Target
-      mvn deploy --settings .maven/settings.xml -DskipMunitTests -DmuleDeploy \
+      run: |
+          mvn deploy --settings .maven/settings.xml -DskipMunitTests -DmuleDeploy \
           -Dclient.id="${{ secrets.CLIENT_ID }}" \
           -Dclient.secret="${{ secrets.CLIENT_SECRET }}" 
