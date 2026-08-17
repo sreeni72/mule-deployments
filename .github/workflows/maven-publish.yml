@@ -69,14 +69,13 @@ jobs:
            "username": "~~~Client~~~",
            "password": "${{ secrets.CLIENT_ID}}~?~${{secrets.CLIENT_SECRET }}"
           }]
-
-    - name: Build with maven
-      if: ${{ github.event.inputs.environment == 'dev' }}
-      run: mvn -B clean package --no-transfer-progress 
   
-    - name: Upload to Exchange
+    - name: Publish to Exchange
       if: ${{ github.event.inputs.environment == 'dev' }}
-      run: mvn deploy --no-transfer-progress -Dusername="kandi03" -Dpassword="Lakshmi@1"
+      run: |
+          mvn deploy --settings .maven/settings.xml -DskipMunitTests \
+          -Dclient.id="${{ secrets.CLIENT_ID }}" \
+          -Dclient.secret="${{ secrets.CLIENT_SECRET }}"
     
     - name: Set Environment Specific Variables
       id: sets-deployment-config-values
@@ -93,4 +92,6 @@ jobs:
                 echo "enforceDeployingReplicasAcrossNodes=false" >> $GITHUB_ENV;;
         esac
     - name: Deploy to Target
-      run: mvn deploy -DmuleDeploy -DskipTests --no-transfer-progress --file pom.xml
+      mvn deploy --settings .maven/settings.xml -DskipMunitTests -DmuleDeploy \
+          -Dclient.id="${{ secrets.CLIENT_ID }}" \
+          -Dclient.secret="${{ secrets.CLIENT_SECRET }}" 
