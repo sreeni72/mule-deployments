@@ -51,9 +51,19 @@
                             <generateDefaultPublicUrl>true</generateDefaultPublicUrl>
                         </deploymentSettings>
                     </cloudhub2Deployment>
-					<classifier>mule-application</classifier>
+					
                 </configuration>
 			</plugin>
+			<!-- Only if you actually want to publish to Exchange -->
+        <plugin>
+            <groupId>org.mule.tools.maven</groupId>
+            <artifactId>exchange-mule-maven-plugin</artifactId>
+            <version>2.0.0</version>
+            <extensions>true</extensions>
+            <configuration>
+                <classifier>mule-application</classifier>
+            </configuration>
+        </plugin>
 		</plugins>
 	</build>
 
