@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="cf009773-22e6-4083-9a25-e201a9c9c23c" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="student-demoFlow" doc:id="44c53681-e81f-45fe-9412-1d76b33ea628" >
+		<http:listener doc:name="Listener" doc:id="368baae5-4d0d-4ef8-92de-9e01c96c1746" config-ref="HTTP_Listener_config" path="/api/students"/>
+		<ee:transform doc:name="Transform Message" doc:id="3cffb15e-46e1-40bd-8060-8bd93f88094c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[
+	{
+	"studentId": 100,
+	"studentName": "Sreeni"
+	},
+	{
+	"studentId": 101,
+	"studentName": "Vasu"
+	}
+]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
