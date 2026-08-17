@@ -76,7 +76,7 @@ jobs:
   
     - name: Upload to Exchange
       if: ${{ github.event.inputs.environment == 'dev' }}
-      run: mvn deploy --no-transfer-progress --file pom.xml
+      run: mvn deploy --no-transfer-progress -Dusername="kandi03" -Dpassword="Lakshmi@1"
     
     - name: Set Environment Specific Variables
       id: sets-deployment-config-values
