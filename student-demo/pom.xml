@@ -60,9 +60,9 @@
             <artifactId>exchange-mule-maven-plugin</artifactId>
             <version>2.0.0</version>
             <extensions>true</extensions>
-            <configuration>
+           <!-- <configuration>
                 <classifier>mule-application</classifier>
-            </configuration>
+            </configuration> -->
         </plugin>
 		</plugins>
 	</build>
