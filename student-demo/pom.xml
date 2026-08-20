@@ -51,34 +51,16 @@
                             <generateDefaultPublicUrl>true</generateDefaultPublicUrl>
                         </deploymentSettings>
                     </cloudhub2Deployment>
-					
+					<classifier>mule-application</classifier>
+    <deploy>
+        <repository>anypoint-exchange</repository>
+		<type>cloudhub-2.0</type>
+    </deploy>
                 </configuration>
 			</plugin>
 			<!-- Only if you actually want to publish to Exchange -->
      
-		<plugin>
-    <groupId>org.mule.tools.maven</groupId>
-    <artifactId>exchange-mule-maven-plugin</artifactId>
-    <version>0.1.7</version>
-    <executions>
-        <execution>
-            <id>validate</id>
-            <phase>validate</phase>
-            <goals>
-                <goal>exchange-pre-deploy</goal>
-            </goals>
-        </execution>
-
-        <execution>
-            <id>deploy</id>
-            <phase>deploy</phase>
-            <goals>
-                <goal>exchange-deploy</goal>
-            </goals>
-        </execution>
-    </executions>
-</plugin>	
-		</plugins>
+				</plugins>
 	</build>
 
 	<dependencies>
@@ -101,6 +83,12 @@
 			<id>anypoint-exchange-v3</id>
 			<name>Anypoint Exchange</name>
 			<url>https://maven.eu1.anypoint.mulesoft.com/api/v3/maven</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>anypoint-exchange</id>
+			<name>Anypoint Exchange</name>
+			<url>https://maven.eu1.anypoint.mulesoft.com/api/v2/maven</url>
 			<layout>default</layout>
 		</repository>
 		<repository>
@@ -129,6 +117,12 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
+		 <pluginRepository>
+        <id>anypoint-exchange</id>
+        <name>Anypoint Exchange</name>
+        <url>https://maven.anypoint.mulesoft.com/api/v2/maven</url>
+        <layout>default</layout>
+    </pluginRepository>
 	</pluginRepositories>
 	
 	<distributionManagement>
@@ -138,5 +132,9 @@
             <url>https://maven.eu1.anypoint.mulesoft.com/api/v3/organizations/${project.groupId}/maven</url>
             <layout>default</layout>
         </repository>
+		<repository>
+        <id>anypoint-exchange</id>
+        <url>https://maven.anypoint.mulesoft.com/api/v2/maven</url>
+    </repository>
     </distributionManagement>
 </project>
