@@ -68,6 +68,11 @@ jobs:
            "id": "anypoint-exchange-v3",
            "username": "~~~Client~~~",
            "password": "${{ secrets.CLIENT_ID}}~?~${{secrets.CLIENT_SECRET }}"
+          },
+          {
+           "id": "anypoint-exchange",
+           "username": "~~~Client~~~",
+           "password": "${{ secrets.CLIENT_ID}}~?~${{secrets.CLIENT_SECRET }}"
           }]
   
     - name: Publish to Exchange
